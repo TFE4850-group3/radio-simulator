@@ -3,12 +3,13 @@
 
 
 // Pins to use for parallel communication
-int inputPins[] = {
+const int inputPins[] = {
   0, 1, 2, 3, 4, 5, 6, 7
 };
 
 // Buffer for input values
-int inputValues[8];
+const int inputPinCount = sizeof(inputPins) / sizeof(int);
+int inputValues[inputPinCount];
 
 
 // Simulate NAROM rocket radio
@@ -29,7 +30,7 @@ void sendPulseAndWait() {
 void readValues() {
     Serial.println("Reading values...");
   
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < inputPinCount; i++) {
         inputValues[i] = digitalRead(i);
     }
 }
@@ -38,7 +39,7 @@ void readValues() {
 void printValues() {
     Serial.print("Values: ");
   
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < inputPinCount; i++) {
         Serial.print(inputValues[i]);
     }
 
@@ -50,7 +51,7 @@ void setup() {
     Serial.begin(9600);
   
     // Set up input pins
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < inputPinCount; i++) {
         pinMode(inputPins[i], INPUT);
     }
     
